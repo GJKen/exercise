@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>height chrome129新特性</title>
+		<style>
+			:root {
+				interpolate-size: allow-keywords;
+			}
+			.trigger:hover ~ .grid {
+				color: red;
+				height: auto;
+			}
+			.grid {
+				transition: .3s;
+				overflow: hidden;
+				height: 0
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div class="trigger">鼠标触碰 查看高度动画</div>
+			<div class="grid">
+				<p>欢迎关注前端侦探，这里有一些有趣的、你可能不知道的HTML、CSS、JS小技巧技巧，比如这篇文章，如何让 auto height 支持过渡动画？一起看看吧</p>
+			</div>
+		</div>
+	</body>
+</html>

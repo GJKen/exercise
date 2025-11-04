@@ -1,2 +1,0 @@
-###header > DIV:last-child
-summer-plus.net###header > TABLE:first-child > TBODY > TR:first-child

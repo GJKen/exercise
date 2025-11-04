@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>测试</title>
+        <!-- <link rel="stylesheet" href="./resource/css/@keyframes animation 圆圈动画.css"> -->
+        <style>
+            /* 动画2 */
+            .loader1{
+                width: 1px;
+                border-radius: 50%;
+                border: 6px #f3f3f3 solid;
+                border-top: 6px #8aefff solid;
+				padding: 20px;
+                animation: anime2 2s infinite;
+                -webkit-animation: anime2 2s infinite;
+            }
+            @keyframes anime2{
+                0%{transform: rotate(0deg);}
+                100%{transform: rotate(360deg);}
+            }
+            @-webkit-keyframes anime2{
+                0%{-webkit-transform: rotate(0deg);}
+                100%{-webkit-transform: rotate(360deg);}
+            }
+            
+            /* 动画2 */
+            .loader2{
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                border: 6px #f3f3f3 solid;
+                border-top: 6px #8aefff solid;
+                /* 这里删除了 linear 属性*/
+                animation: anime2 2s infinite;
+                -webkit-animation: anime2 2s infinite;
+            }
+            @keyframes anime2{
+                0%{transform: rotate(0deg);}
+                100%{transform: rotate(360deg);}
+            }
+            @-webkit-keyframes anime2{
+                0%{-webkit-transform: rotate(0deg);}
+                100%{-webkit-transform: rotate(360deg);}
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="loader1"></div>
+        </div>
+        <p>
+            <img data-fancybox="gallery" class="loader1" img-src="https://example.com/image.jpg">
+        </p>
+    </body>
+</html>

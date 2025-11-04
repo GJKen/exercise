@@ -1,43 +1,43 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<title>侧边栏练习</title>
-		<link rel="stylesheet" href="./css/垃圾1.css">
-		<script src="https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons_17022_12.fd3d3f5da1aba5cc0e15db0488b92def.js"></script>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>模糊效果</title>
 		<style>
+			/* 添加类名一致性 */
+			.spoiled {
+				filter: blur(5px);
+				-webkit-filter: blur(5px);
+				cursor: pointer;
+				transition: filter 0.3s ease;
+			}
+
+			.spoilerText {
+				transition: filter 0.3s ease;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="sidebar">
-			<header>
-				<div class="header-imgtxt">
-					<span><a href="./垃圾1.html"><img src="./img/avatar/navIndex.png" alt="头像" title="GJKen"></a></span>
-					<div class="header-txt">
-						<span class="name">GJKen</span>
-					</div>
-					<iconpark-icon class="header-btn" name="arrow-circle-left"></iconpark-icon>
-				</div>
-			</header>
-			<ul class="menu">
-				<li class='nav-link'>
-					<a href="#">
-						<div class="icon"><iconpark-icon name="home"></iconpark-icon></div>
-						<p>Home</p>
-					</a>
-				</li>
-				<li class='nav-link'>
-					<a href="#">
-						<div class="icon"><iconpark-icon name="home"></iconpark-icon></div>
-						<p>Home</p>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="home">
-			<div class="text">这里还什么都没有</div>
-		</div>
+		<span class="spoilerText spoiled">点击我取消模糊</span>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				// 获取目标元素
+				const blurText = document.querySelector(".spoilerText");
+				if (!blurText) return; // 如果目标不存在，则退出
+
+				// 点击文本时取消模糊
+				blurText.addEventListener("click", (event) => {
+					blurText.classList.remove("spoiled"); // 移除模糊效果
+					event.stopPropagation(); // 阻止事件冒泡到文档
+				});
+
+				// 点击网页其它地方时恢复模糊
+				document.addEventListener("click", () => {
+					blurText.classList.add("spoiled"); // 恢复模糊效果
+				});
+			});
+		</script>
 	</body>
-	<script src="./js/垃圾1.js"></script>
-	<script src="./js/svg-inject.js"></script>
 </html>

@@ -1,4 +1,4 @@
-.gardient{
+.gardient {
 	/* 持续时间 */
 	transition: .3s;
 }
@@ -9,8 +9,7 @@
 }
 
 .hover2 {
-	/* 宽度 */
-	width: 395px;
+	display: inline-block;
 	background-image: linear-gradient(#1095c1 0 0);
 	/* 200%为长度,3px为高度,根据需要进行修改 */
 	background-size: 200% 3px;
@@ -18,6 +17,7 @@
 	background-repeat: no-repeat;
 	transition: background-size .2s, background-position .2s .2s;
 }
+
 .hover2:hover {
 	transition: background-size .2s .2s, background-position .2s;
 	/* 鼠标触碰向上填充宽度 */
@@ -26,8 +26,7 @@
 }
 
 .hover3 {
-	/* 宽度 */
-	width: 19%;
+	display: inline-block;
 	background-image: linear-gradient(#1095c1 0 0);
 	/* 200%为长度,3px为高度,根据需要进行修改 */
 	background-size: 200% 3px;
@@ -36,23 +35,39 @@
 	/* 鼠标离开动画时间 */
 	transition: background-size .2s, background-position .2s .2s;
 }
+
 .hover3:hover {
 	/* 鼠标触碰动画时间 */
 	transition: background-size .2s .2s, background-position .2s;
 	background-position: 100% 100%;
 }
 
-.heimu1{
+.hover4 {
+	color: red;
+	text-decoration: underline;
+	text-decoration-thickness: 0.3em;
+}
+
+.hover4::after {
+}
+
+.hover4:hover {
+}
+
+.heimu1 {
 	opacity: 0;
 }
-.heimu1:hover{
+
+.heimu1:hover {
 	opacity: 1;
 }
-.heimu2{
+
+.heimu2 {
 	opacity: 0;
 	transition: .1s;
 }
-.heimu2:hover{
+
+.heimu2:hover {
 	opacity: 1;
 	color: red;
 	transition: .2s;

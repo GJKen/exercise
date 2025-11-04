@@ -9,9 +9,23 @@
 				text-decoration: none;
 				font-size: 25px;
 			}
+			.test2 a:hover{
+				background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='%23ff3300' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E") repeat-x 0 100%;
+				background-size: 20px auto;
+				animation: waveMove 1s infinite linear;
+			}
+			@keyframes waveMove {
+				0%{
+					background-position: 0 100%;
+				}
+				100%{
+					background-position: -20px 100%;
+				}
+			}
 		</style>
 	</head>
 	<body>
-		<div class="test"><a href="https://toolnb.com" target="_blank">baidu</a></div>
+		<div class="test"><a href="" target="_blank">去下划线</a></div>
+		<div class="test2"><a href="" target="_blank">hover波浪下划线</a></div>
 	</body>
 </html>

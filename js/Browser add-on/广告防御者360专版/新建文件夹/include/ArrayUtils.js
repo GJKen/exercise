@@ -1,1 +1,0 @@
-!function(r){r.ArrayUtils=function(){"use strict";return{isArray:Array.isArray||function(r){return""+r=="[object Array]"}}},r.ArrayUtils=new r.ArrayUtils}(vAPI);
