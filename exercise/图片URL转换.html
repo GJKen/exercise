@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片URL转换工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .input-section, .output-section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #4a00e0;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+        
+        textarea:focus {
+            border-color: #4a00e0;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 0, 224, 0.1);
+        }
+        
+        .output-section textarea {
+            background-color: #f9f9f9;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .convert-btn {
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            color: white;
+        }
+        
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 0, 224, 0.3);
+        }
+        
+        .copy-btn {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .copy-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .example {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .example h3 {
+            margin-bottom: 10px;
+            color: #4a00e0;
+        }
+        
+        .example p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>图片URL转换工具</h1>
+            <p class="subtitle">快速将图片URL转换为Gmeek-imgbox格式</p>
+        </header>
+        
+        <div class="content">
+            <div class="input-section">
+                <h2><i>📥</i> 输入图片URL</h2>
+                <textarea id="inputUrls" placeholder="请输入图片URL，每行一个或多个（用空格分隔）...
+例如：
+https://i.postimg.cc/zGYPZKwX/image.png
+https://i.postimg.cc/zBHcYjQV/image.png https://i.postimg.cc/zGdtL6Zb/image.png
+https://i.postimg.cc/59ws56dG/image.png"></textarea>
+            </div>
+            
+            <div class="buttons">
+                <button class="convert-btn" id="convertBtn">
+                    <i>🔄</i> 转换URL
+                </button>
+                <button class="copy-btn" id="copyBtn">
+                    <i>📋</i> 复制结果
+                </button>
+            </div>
+            
+            <div class="output-section">
+                <h2><i>📤</i> 转换结果</h2>
+                <textarea id="outputUrls" readonly placeholder="转换后的结果将显示在这里..."></textarea>
+            </div>
+            
+            <div class="example">
+                <h3>使用说明</h3>
+                <p>• 输入图片URL，每行一个或多个URL（用空格分隔）</p>
+                <p>• 点击"转换URL"按钮进行转换</p>
+                <p>• 点击"复制结果"按钮复制转换后的内容</p>
+                <p>• 转换格式：Gmeek-imgbox="图片URL"</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 图片URL转换工具 | 设计用于Gmeek-imgbox格式转换</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputUrls = document.getElementById('inputUrls');
+            const outputUrls = document.getElementById('outputUrls');
+            const convertBtn = document.getElementById('convertBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            
+            // 转换URL函数
+            convertBtn.addEventListener('click', function() {
+                const inputText = inputUrls.value.trim();
+                if (!inputText) {
+                    outputUrls.value = '请输入图片URL';
+                    return;
+                }
+                
+                // 按行分割输入
+                const lines = inputText.split('\n');
+                let result = '';
+                
+                lines.forEach(line => {
+                    // 移除行首尾空格
+                    const trimmedLine = line.trim();
+                    if (!trimmedLine) return;
+                    
+                    // 按空格分割每行中的多个URL
+                    const urls = trimmedLine.split(/\s+/);
+                    
+                    urls.forEach(url => {
+                        if (url) {
+                            // 转换为目标格式
+                            result += `\`Gmeek-imgbox="${url}"\`\n\n`;
+                        }
+                    });
+                });
+                
+                outputUrls.value = result.trim();
+            });
+            
+            // 复制结果函数
+            copyBtn.addEventListener('click', function() {
+                if (!outputUrls.value) {
+                    alert('没有内容可复制，请先转换URL');
+                    return;
+                }
+                
+                outputUrls.select();
+                document.execCommand('copy');
+                
+                // 显示复制成功提示
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i>✅</i> 已复制';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            });
+            
+            // 添加示例URL
+            inputUrls.value = `https://i.postimg.cc/zGYPZKwX/image.png
+https://i.postimg.cc/zBHcYjQV/image.png https://i.postimg.cc/zGdtL6Zb/image.png
+https://i.postimg.cc/59ws56dG/image.png`;
+        });
+    </script>
+</body>
+</html>
