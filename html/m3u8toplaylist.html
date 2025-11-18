@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3U8播放列表转换器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1a2a6c;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .input-section, .output-section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fdbb2d;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            border-color: #1a2a6c;
+            outline: none;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .secondary-btn {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+        }
+        
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 5px solid #1a2a6c;
+        }
+        
+        .info-section h3 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+        }
+        
+        .info-section p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .example {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>M3U8播放列表转换器</h1>
+            <p class="subtitle">将普通播放列表格式转换为M3U8格式</p>
+        </header>
+        
+        <div class="input-section">
+            <h2>输入播放列表</h2>
+            <textarea id="inputText" placeholder="请在此处粘贴您的播放列表内容，例如：
+E:\!Music\YOASOBI - 夜に駆ける.flac
+E:\!Music\YOASOBI Blue (「群青」English Ver.).mp3">E:\!Music\YOASOBI - 夜に駆ける.flac
+E:\!Music\YOASOBI Blue (「群青」English Ver.).mp3</textarea>
+        </div>
+        
+        <div class="button-group">
+            <button id="convertBtn">转换为M3U8格式</button>
+            <button id="clearBtn" class="secondary-btn">清空内容</button>
+        </div>
+        
+        <div class="output-section">
+            <h2>M3U8格式输出</h2>
+            <textarea id="outputText" readonly placeholder="转换后的M3U8内容将显示在这里"></textarea>
+        </div>
+        
+        <div class="button-group">
+            <button id="copyBtn" class="secondary-btn">复制到剪贴板</button>
+            <button id="downloadBtn">下载M3U8文件</button>
+        </div>
+        
+        <div class="info-section">
+            <h3>使用说明</h3>
+            <p>1. 在输入框中粘贴您的播放列表内容（每行一个文件路径）</p>
+            <p>2. 点击"转换为M3U8格式"按钮</p>
+            <p>3. 转换后的M3U8内容将显示在输出框中</p>
+            <p>4. 您可以将结果复制到剪贴板或下载为M3U8文件</p>
+            
+            <div class="example">
+                <p><strong>输入示例:</strong></p>
+                <p>E:\!Music\YOASOBI - 夜に駆ける.flac</p>
+                <p>E:\!Music\YOASOBI Blue (「群青」English Ver.).mp3</p>
+                
+                <p><strong>输出示例:</strong></p>
+                <p>#EXT-X-RATING:0</p>
+                <p>Primary/!Music/YOASOBI - 夜に駆ける.flac</p>
+                <p>#EXT-X-RATING:0</p>
+                <p>Primary/!Music/YOASOBI Blue (「群青」English Ver.).mp3</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 M3U8播放列表转换器 | 使用HTML/JavaScript实现</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputText = document.getElementById('inputText');
+            const outputText = document.getElementById('outputText');
+            const convertBtn = document.getElementById('convertBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // 转换函数
+            convertBtn.addEventListener('click', function() {
+                const input = inputText.value.trim();
+                if (!input) {
+                    alert('请输入播放列表内容');
+                    return;
+                }
+                
+                const lines = input.split('\n');
+                let output = '';
+                
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        // 移除Windows路径前缀并替换路径分隔符
+                        const cleanPath = line.trim().replace(/^[A-Z]:\\/, '').replace(/\\/g, '/');
+                        
+                        // 添加到输出
+                        output += '#EXT-X-RATING:0\n';
+                        output += `Primary/${cleanPath}\n`;
+                    }
+                });
+                
+                outputText.value = output;
+            });
+            
+            // 清空内容
+            clearBtn.addEventListener('click', function() {
+                inputText.value = '';
+                outputText.value = '';
+            });
+            
+            // 复制到剪贴板
+            copyBtn.addEventListener('click', function() {
+                if (!outputText.value) {
+                    alert('没有内容可复制');
+                    return;
+                }
+                
+                outputText.select();
+                document.execCommand('copy');
+                alert('已复制到剪贴板');
+            });
+            
+            // 下载M3U8文件
+            downloadBtn.addEventListener('click', function() {
+                if (!outputText.value) {
+                    alert('没有内容可下载');
+                    return;
+                }
+                
+                const blob = new Blob([outputText.value], { type: 'application/x-mpegurl' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'playlist.m3u8';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+</html>
